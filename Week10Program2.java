@@ -7,7 +7,7 @@ public class Week10Program2 {
 
     public static double calculateAverage(List<Integer> numbers) {
         if (numbers == null || numbers.isEmpty()) {
-            return 0; 
+            return 0;
         }
 
         int sum = 0;
@@ -22,25 +22,23 @@ public class Week10Program2 {
         List<Integer> numbers = new ArrayList<>();
 
         System.out.println("=== Average Value Calculator ===");
-        System.out.println("Enter between 1 and 30 integers (type 'done' when finished):");
+        System.out.println("Enter between 1 and 30 integers separated by spaces:");
+        System.out.print("→ ");
 
-        while (numbers.size() < 30) {
-            System.out.print("Enter an integer (or 'done' to stop): ");
-            if (input.hasNextInt()) {
-                int num = input.nextInt();
-                numbers.add(num);
-            } else {
-                String text = input.next();
-                if (text.equalsIgnoreCase("done")) {
-                    break;
-                } else {
-                    System.out.println("Invalid input, please enter an integer or 'done'.");
-                }
+        String line = input.nextLine();
+
+        String[] parts = line.trim().split("\\s+");
+
+        for (int i = 0; i < parts.length && i < 30; i++) {
+            try {
+                numbers.add(Integer.parseInt(parts[i]));
+            } catch (NumberFormatException e) {
+                System.out.println("Skipping invalid entry: " + parts[i]);
             }
         }
 
         if (numbers.isEmpty()) {
-            System.out.println("No numbers entered. Exiting program.");
+            System.out.println("No valid numbers entered. Exiting program.");
         } else {
             double avg = calculateAverage(numbers);
             System.out.printf("You entered %d numbers.%n", numbers.size());
@@ -48,8 +46,8 @@ public class Week10Program2 {
         }
 
         input.close();
-
-
-	}
-
+    }
 }
+
+
+
